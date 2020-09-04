@@ -1,3 +1,4 @@
+BACKUP_DIR = backup
 BUILD_DIR = build
 CLEANCSS = ./node_modules/.bin/cleancss
 DEPLOY_DIR = libs
@@ -13,7 +14,9 @@ STYLES_MAIN = css/main.scss
 WEBPACK = ./node_modules/.bin/webpack
 WEBPACK_DEV_SERVER = ./node_modules/.bin/webpack-dev-server
 
-all: compile deploy clean
+all: compile deploy backup clean
+
+.PHONY: backup
 
 compile:
 	$(WEBPACK) -p
@@ -92,3 +95,7 @@ source-package:
 	cp css/all.css source_package/jitsi-meet/css && \
 	(cd source_package ; tar cjf ../jitsi-meet.tar.bz2 jitsi-meet) && \
 	rm -rf source_package
+
+backup:
+	mkdir -p $(BACKUP_DIR)
+	tar zcvf $(BACKUP_DIR)/backup_$(shell date '+%F_%H%M%S' ).tgz $(DEPLOY_DIR)
