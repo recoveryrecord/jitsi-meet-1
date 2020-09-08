@@ -1329,6 +1329,11 @@ export default {
                 APP.conference.roomName,
                 this._getConferenceOptions());
 
+        if (room.getParticipants().membersCount >= config.maxParticipants) {
+            _onConferenceFailed(JitsiConferenceErrors.CONFERENCE_MAX_USERS);
+            return;
+        }
+
         APP.store.dispatch(conferenceWillJoin(room));
         this._setLocalAudioVideoStreams(localTracks);
         this._room = room; // FIXME do not use this

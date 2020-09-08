@@ -126,6 +126,7 @@ export default [
     'ignoreStartMuted',
     'liveStreamingEnabled',
     'localRecording',
+    'maxParticipants',
     'maxFullResolutionParticipants',
     'minParticipants',
     'nick',
