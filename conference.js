@@ -693,12 +693,6 @@ export default {
             setDesktopSharingEnabled(this.isDesktopSharingEnabled));
 
         this._createRoom(tracks);
-        if (this._room.roomName.startsWith("call") && room.getParticipants().membersCount >= 2) {
-                _onConferenceFailed(JitsiConferenceErrors.CONFERENCE_MAX_USERS);
-                logger.error("Too many participants");
-                throw JitsiConferenceErrors.CONFERENCE_MAX_USERS;
-                return;
-            }
         APP.remoteControl.init();
 
         // if user didn't give access to mic or camera or doesn't have
@@ -752,10 +746,6 @@ export default {
         };
 
         this.roomName = roomName;
-
-        if (roomName.startsWith("call")) {
-            return APP.store.dispatch(notifyMaxUsersLimitReached());
-        }
 
         window.addEventListener('hashchange', this.onHashChange.bind(this), false);
 
